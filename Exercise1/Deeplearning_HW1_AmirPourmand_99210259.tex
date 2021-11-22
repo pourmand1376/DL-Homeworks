@@ -1,0 +1,479 @@
+\documentclass{article}[12pt]
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{tikz}
+\usepackage{xepersian}
+\settextfont[Scale=1]{IRXLotus}
+\setlatintextfont[Scale=0.8]{}
+
+\DeclareRobustCommand{\bbone}{\text{\usefont{U}{bbold}{m}{n}1}}
+
+\DeclareMathOperator{\EX}{\mathbb{E}}% expected value
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+
+\title{  \includegraphics[scale=0.35]{../logo.png} \\
+    دانشکده مهندسی کامپیوتر
+    \\
+    دانشگاه صنعتی شریف
+}
+\author{استاد درس: دکتر  حمید بیگی}
+\date{پاییز ۱۴۰۱}
+
+
+
+\def \Subject {
+تمرین اول
+}
+\def \Course {
+درس یادگیری ژرف
+}
+\def \Author {
+نام و نام خانوادگی:
+امیر پورمند}
+\def \Email {\lr{pourmand1376@gmail.com}}
+\def \StudentNumber {99210259}
+
+
+\begin{document}
+
+ \maketitle
+ 
+\begin{center}
+\vspace{.4cm}
+{\bf {\huge \Subject}}\\
+{\bf \Large \Course}
+\vspace{.8cm}
+
+{\bf \Author}
+
+\vspace{0.3cm}
+
+{\bf شماره دانشجویی: \StudentNumber}
+
+\vspace{0.3cm}
+
+آدرس ایمیل
+:
+{\bf \Email}
+\end{center}
+
+
+\clearpage
+\section{سوال ۱}
+\subsection{الف}
+
+ابتدا در نظر میگیرم که 
+$w_0=b$
+و
+$x_0=1$
+پس داریم. 
+
+\begin{equation*}
+	\hat{y} \ =\ \sum _{i=1}^{d} w_{i} x_{i} +b=\sum _{i=0}^{d} w_{i} x_{i}
+\end{equation*}
+
+\begin{equation*}
+	 \begin{split}
+		\frac{\partial L}{\partial w_{j}} =\frac{\partial }{\partial w_{j}}\frac{1}{2n}\sum _{i=1}^{n}\left( y^{( i)} -\hat{y}^{( i)}\right)^{2}\\
+		=\frac{1}{n}\sum _{i=1}^{n}\left( y^{( i)} -\hat{y}^{( i)}\right)\frac{\partial }{\partial w_{j}}\sum _{i=0}^{d} w_{i} x_{i}\\
+		=\frac{1}{n}\sum _{i=1}^{n}\left( y^{( i)} -\hat{y}^{( i)}\right) x_{j}^{( i)}
+	\end{split}
+\end{equation*}
+
+نهایتا رابطه به روز رسانی به فرم زیر خواهد بود. 
+
+\begin{equation*}
+	\begin{split}
+			w_{j} :=w_{j} -\alpha \frac{\partial L}{\partial w_{j}}\\
+			w_{j} :=\ w_{j} -\frac{\alpha }{n}\sum _{i=1}^{n}\left( y^{( i)} -\hat{y}^{( i)}\right) x_{j}^{( i)}
+	\end{split}
+\end{equation*}
+
+\subsection{ب}
+
+ابتدا 
+$\hat{y}^{(i)}$
+را به فرم زیر مینویسیم.
+$\hat{y}^{(i)}=w^{T} x$
+
+پس داریم: (در نظر داشته باشید در خط دوم عبارت 
+$\frac{1}{2n}$
+به این علت حذف شد که بود و نبود آن نهایتا تاثیری در مشتق گیری ندارد چون میخواهیم عبارت را مساوی صفر قرار دهیم. 
+)
+	\begin{gather*}
+	L\left(w\right)=\frac{1}{2 n} \sum_{i=1}^{n}\left(\hat{y}^{(i)})-y^{(i)}\right)^{2} 
+	\\
+	L(w)=\frac{1}{2 n}(X w-y)^{T}(X w-y) \\ 
+	L(w)=\left((X w)^{T}-y^{T}\right)(X w-y) \\
+	L(w)=(X w)^{T} X w-(X w)^{T} y-y^{T}(X w)+y^{T} y\\
+	L(w)=w^{T} X^{T} X w-2(X w)^{T} y+y^{T} y
+	\end{gather*}
+حال که قدری ساده سازی انجام شد از عبارت نسبت به w مشتق میگیریم. 
+\begin{gather*}
+	\frac{\partial L}{\partial w}=2 X^{T} X w-2 X^{T} y=0	
+\end{gather*}
+که نتیجه میشود:
+\begin{gather*}
+	X^{T} X w=X^{T} y
+\end{gather*}
+یا میتوان گفت:
+\begin{gather*}
+	w=\left(X^{T} X\right)^{-1} X^{T} y
+\end{gather*}
+
+\subsection{ج}
+
+در مسئله closed form اگر نیاز باشد که N متغیر مستقل محاسبه شوند یک ماتریس 
+$N \times N$
+باید معکوس شود که از مرتبه 
+$O(N^3)$
+است ولی اگر مسئله را با روش gradient descent حل کنیم از مرتبه خطی یا همان N میشود که به مراتب ساده تر است. 
+
+
+\section{سوال ۲}
+مشکل محوشوندگی مشتق وقتی پیش می‌آید که در فرایند backpropagation یک سری عدد خیلی کوچک در هم ضرب میشوند که باعث میشود لایه های اول در اپدیت شدن وزن ها مشکل داشته باشند و تقریبا میتوان گفت اگر این مشکل پیش بیاید، مسئله هیچ وقت converge نمیکند. 
+
+حال این مشکل در توابعی اصولا پیش میآیند که مشتق انها بسیار محدود است  و این باعث میشود که مشکل vanishing gradient یا diminishing gradient بوجود آید. 
+
+\begin{equation*}
+	\sigma(t)=\frac{1}{1+e^{-t}}
+\end{equation*}
+به سادگی مشخص است که 
+\begin{equation*}
+	\sigma(t)_{t \rightarrow \infty}=1.0
+\end{equation*}
+و البته 
+\begin{equation*}
+	\sigma(t)_{t \rightarrow-\infty}=0.0
+\end{equation*}
+از طرفی مشتق تابع نیز همواره بین صفر و یک محدود است زیرا
+\begin{gather*}
+	\sigma^{\prime}(t)=\sigma(t)(1.0-\sigma(t))\\
+		0\leqslant \sigma ( t) \leqslant 1\\
+		0\leqslant 1-\sigma ( t) \leqslant 1\\
+		0\leqslant \sigma ( t) \ ( 1-\sigma ( t)) \leqslant 1
+\end{gather*}
+
+که این باعث میشود مشکل محوشوندگی مشتق را داشته باشیم. در حالی که تابع ReLU به صورت زیر تعریف میشود:
+
+\begin{gather*}
+		ReLU( x) \ =\ max( 0,x) =\begin{cases}
+			x & x\geqslant 0\\
+			0 & x< 0
+		\end{cases}\\
+		ReLU^\prime ( x) =\begin{cases}
+			1 & x >0\\
+			0 & x< 0\\
+			undefined & x=0
+		\end{cases}
+\end{gather*}
+
+پس این تابع مشکل محوشوندگی گرادیان را ندارد ولی مشکل دیگری دارد به نام dead gradient که اگر مشتق صفر شود بوجود میاید. 
+
+
+\subsection{ب}
+هدف مقداردهی Xaviar این است که وزن ها به ترتیبی نسبت داده شوند که واریانس توابع فعال ساز در تمامی لایه ها با هم برابر باشند. این واریانس برابر تضمین میکند که مشکل vanishing gradient پیش نیاید. 
+
+البته فرض میکنیم میانگین مقادیر ورودی و وزن‌ها صفر است که اگر صفر نبود میتوانیم به سادگی داده ورودی را شیفت دهیم و البته فرض idd نیز که همیشه موجود است و از تابع تانژانت هایپربولیک استفاده میکنیم که داریم:
+
+\begin{equation*}
+	\operatorname{Var}\left(a^{[l]}\right) \approx \operatorname{Var}\left(z^{[l]}\right)
+\end{equation*} 
+
+ابتدای امر با توجه به فرض الگوریتم زیور داریم:
+\begin{equation*}
+	\operatorname{Var}\left(a_{k}^{[l]}\right)=\operatorname{Var}\left(z_{k}^{[l]}\right)=\operatorname{Var}\left(\sum_{j=1}^{n^{[l-1]}} w_{k j}^{[l]} a_{j}^{[l-1]}\right)=\sum_{j=1}^{n^{[l-1]}} \operatorname{Var}\left(w_{k j}^{[l]} a_{j}^{[l-1]}\right)
+\end{equation*}
+
+حال با توجه به فرمول زیر ضرب را به جمع تبدیل میکنیم
+
+\begin{equation*}
+	\operatorname{Var}(X Y)=E[X]^{2} \operatorname{Var}(Y)+\operatorname{Var}(X) E[Y]^{2}+\operatorname{Var}(X) \operatorname{Var}(Y)
+\end{equation*}
+
+پس داریم:
+\begin{equation*}
+	\operatorname{Var}\left(w_{k j}^{[l]} a_{j}^{[l-1]}\right)=E\left[w_{k j}^{[l]}\right]^{2} \operatorname{Var}\left(a_{j}^{[l-1]}\right)+\operatorname{Var}\left(w_{k j}^{[l]}\right) E\left[a_{j}^{[l-1]}\right]^{2}+\operatorname{Var}\left(w_{k j}^{[l]}\right) \operatorname{Var}\left(a_{j}^{[l-1]}\right)
+\end{equation*}
+
+که به خاطر این است که در سوال فرض کرده ایم
+\begin{equation*}
+	\operatorname{Var}\left(w_{k j}^{[l]}\right)=\operatorname{Var}\left(w_{11}^{[l]}\right)=\operatorname{Var}\left(w_{12}^{[l]}\right)=\cdots=\operatorname{Var}\left(W^{[l]}\right)
+\end{equation*}
+و البته فرض کرده ایم:
+\begin{equation*}
+	\operatorname{Var}\left(a_{j}^{[l-1]}\right)=\operatorname{Var}\left(a_{1}^{[l-1]}\right)=\operatorname{Var}\left(a_{2}^{[-1]}\right)=\cdots=\operatorname{Var}\left(a^{l-1]}\right)
+\end{equation*}
+
+پس با همین ایده نتیجه میشود:
+\begin{equation*}
+	\operatorname{Var}\left(z^{[l]}\right)=\operatorname{Var}\left(z_{k}^{[l]}\right)
+\end{equation*}
+
+که نهایتا عبارت زیر نتیجه میشود:
+
+\begin{equation*}
+	\operatorname{Var}\left(a^{[l]}\right)=n^{[l-1]} \operatorname{Var}\left(W^{[l]}\right) \operatorname{Var}\left(a^{[l-1]}\right)
+\end{equation*}
+
+پس نتیجه میگیریم:
+\begin{equation*}
+	\operatorname{Var}\left(W^{[l]}\right)=\frac{1}{n^{[l-1]}}
+\end{equation*}
+
+یعنی بهتر است واریانس تک تک وزن های هر لایه رابطه معکوس با تعداد نورون های لایه داشته باشد. حال با توجه به این که ضرب 
+$\operatorname{Var}\left(W^{[l]}\right) * {n^{[l-1]}}$
+۱ میشود مشکل محوشوندگی حل میشود و اگر کمتر از یک و بیشتر از یک بود هر کدام میتوانست باعث بوجود آمدن مشکل انفجار یا محوشوندگی گرادیان شود. 
+
+\subsection{ج}
+
+میدانیم در هر شبکه عصبی 
+\begin{equation*}
+	z= \sum_{i=0}^{n} w_i a_i + b
+\end{equation*}
+است بنابراین وقتی هر کدام از ضرایب 
+$a_i$
+یا 
+$z_i$
+خیلی بزرگ باشند باعث میشود که مشتق ها بسیار کوچک شود و نتیجتا فرایند یادگیری بسیار کند میشود. این بدین علت است که تابع سیگموید به صورت زیر تعریف میشود:
+
+
+\begin{equation*}
+	\sigma(t)=\frac{1}{1+e^{-t}}
+\end{equation*}
+به سادگی مشخص است که 
+\begin{equation*}
+	\sigma(t)_{t \rightarrow \infty}=1.0
+\end{equation*}
+و البته 
+\begin{equation*}
+	\sigma(t)_{t \rightarrow-\infty}=0.0
+\end{equation*}
+
+حال برای مشتق داریم:
+\begin{eqnarray}
+	\sigma^\prime(t)_{t \rightarrow-\infty} = \sigma(t) (1-\sigma(t)) 
+\end{eqnarray}
+که به ازای مقادیر خیلی کوچک یا مقادیر خیلی بزرگ یکی از دو ضرب شونده به صفر نزدیک میشوند که کل عبارت را بسیار بسیار کوچک میکند. 
+\section{سوال ۳}
+\subsection{الف}
+\subsubsection{1}
+علت این کار در واقع این است که ما در فرآیند منظم سازی، وزن های نسبت  داده شده به خروجی های توابع فعال ساز را محدود میکنیم تا مدلی که بدست آورده ایم overfit نشود و این طور نباشد که مقدار آن برای تمام خروجی ها عدد بسیار بزرگی باشد. به جای آن با محدود کردن ضرایب سعی میکنیم به مدل بفهمانیم که بهتر است از ضرایب کمتر و کوچکتری استفاده کند تا مدل بهتری بدست بیاید اما ذات بایاس اینگونه است که صرفا بردار را در فضا جا به جا میکند و تفاوتی در overfit شدن و نشدن ندارد. 
+
+\subsubsection{2}
+برای مشخص تر شدن قضیه ابتدا عبارت زیر را در نظر بگیرید:
+\begin{equation*}
+	L 1=w^{(t+1)}=w^{(t)}-\epsilon(\Delta E(w)+\lambda)
+\end{equation*}
+
+حال وقتی که یک ضریب به صفر نردیک میشود مقدار 
+$\epsilon \lambda$
+ثابت است که باعث میشود دوباره به صفر بیشتر نزدیک شود و نهایتا سعی میکند که تک تک وزن ها را تا جای ممکن صفر کند. 
+\subsection{ب}
+برای بدست آوردن تابع likelihood داریم: 
+\begin{equation*}
+\begin{aligned}
+	\mathcal{L}(w \mid \mathbf{y}) &:=P(\mathbf{y} \mid w) \\
+	&=\prod_{i=1}^{n} P_{Y}\left(y_{i} \mid w, \sigma^{2}\right) \\
+	&=\prod_{i=1}^{n} \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{\left(y_{i}-\left(w_{0}+w_{1} x_{i, 1}+\ldots+w_{p} x_{i, p}\right)\right)^{2}}{2 \sigma^{2}}}
+\end{aligned}
+\end{equation*}
+
+از طرفی posterior برابر است با:
+
+$$
+\begin{aligned}
+	\hat{\theta}_{\mathrm{MAP}} &=\arg \max _{\theta} P(\theta \mid y) \\
+	&=\arg \max _{\theta} \frac{P(y \mid \theta) P(\theta)}{P(y)} \\
+	&=\arg \max _{\theta} P(y \mid \theta) P(\theta) \\
+	&=\arg \max _{\theta} \log (P(y \mid \theta) P(\theta)) \\
+	&=\arg \max _{\theta} \log P(y \mid \theta)+\log P(\theta)
+\end{aligned}
+$$
+
+پس با جایگذاری فرمول اول در posterior خواهیم داشت:
+$$
+\begin{array}{l}
+	\arg \max _{w}\left[\log \prod_{i=1}^{n} \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{\left(y_{i}-\left(w_{0}+w_{1} x_{i, 1}+\ldots+w_{p} x_{i, p}\right)\right)^{2}}{2 \sigma^{2}}}+\log \prod_{j=0}^{p} \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{w_{j}^{2}}{2 \sigma^{2}}}\right] \\
+	=\arg \max _{w}\left[-\sum_{i=1}^{n} \frac{\left(y_{i}-\left(w_{0}+w_{1} x_{i, 1}+\ldots+w_{p} x_{i, p}\right)\right)^{2}}{2 \sigma^{2}}-\sum_{j=0}^{p} \frac{w_{j}^{2}}{2 \sigma^{2}}\right] \\
+	=\arg \min _{w} \frac{1}{2 \sigma^{2}}\left[\sum_{i=1}^{n}\left(y_{i}-\left(w_{0}+w_{1} x_{i, 1}+\ldots+w_{p} x_{i, p}\right)\right)^{2}+\frac{\sigma^{2}}{\sigma^{2}} \sum_{j=0}^{p} w_{j}^{2}\right] \\
+	=\arg \min _{w}\left[\sum_{i=1}^{n}\left(y_{i}-\left(w_{0}+w_{1} x_{i, 1}+\ldots+w_{p} x_{i, p}\right)\right)^{2}+\lambda \sum_{j=0}^{p} w_{j}^{2}\right]
+\end{array}
+$$
+
+که این همان منظم ساز L2 است. 
+\subsection{ج}
+
+
+در واقع فرایند نرمال سازی دسته ای در هنگام عملیات یادگیری ژرف برای کاهش covariate shift انجام میشود که در این عملیات میانگین مقادیر لایه خاص با توجه به میانگین و واریانس همان batch اپدیت میشود. 
+
+در حین فرآیند اموزش با توجه نوع داده ای که از شبکه میگذرد توزیع خروجی لایه ها با توجه به ورودی تغییر میکند که باعث میشود توزیع داده های جدید را یاد بگیرد و ما با انجام normalization لایه های شبکه را مجبور میکنیم که به نوعی توزیع خود را زیاد تغییر ندهند و به نوعی توزیع ها تقریبا یکسان میشود. در این حالت شبکه بسیار زودتر اموزش داده میشود. 
+
+در واقع به طور ساده میتوان گفت در حین فرآیند اموزش، توزیع خروجی لایه های فعال ساز میانی در هر مرحله تغییر میکند که به این فرایند internal covariance shift گویند. پس اگر جلوی این کار را بگیریم سرعت به شدت بالا میرود. 
+
+ولی مشکلی که دارد این است که وقتی سایز batch ها کوچک است میانگین و واریانس batch نماینده خوبی برای کل مجموعه نیستند که باعث میشود دقت کل شبکه پایین بیاید که نتیجه این است که در واقع تعداد داده ها به قدری بزرگ نبوده است که میانگین و واریانس batch بتواند estimation خوبی از میانگین و واریانس اصلی باشند. 
+\subsection{د}
+ابتدا یک ساده سازی انجام دهیم و ببینیم چه میشود: 
+
+ \begin{gather*}
+	f_{t} =\nabla _{\theta } J( \theta _{t})\\
+	m_{t} =b_{1} m_{t-1} +( 1-b_{1}) f_{t}\\
+	m_{0} =0
+\end{gather*}
+سپس به روش بازگشتی مقادیر را بدست می‌آوریم:
+\begin{gather*}
+		m_{1} =b_{1} m_{0} +( 1-b_{1}) f_{1} =( 1-b_{1}) f_{1}\\
+		m_{2} =b_{1} m_{1} +( 1-b_{1}) f_{2} =b_{1}( 1-b_{1}) f_{1} +( 1-b_{1}) f_{2}\\
+		=( 1-b_{1})( b_{1} f_{1} +f_{2})\\
+		m_{3} =b_{1} m_{2} +( 1-b_{1}) f_{3}\\
+		=( 1-b_{1})\left( b_{1}^{2} f_{1} +b_{1} f_{2} +f_{3}\right)\\
+		...\\
+		m_{n} =( 1-b_{1})\sum _{i=1}^{n} b_{1}^{n-i} f_{i}
+\end{gather*}
+
+
+پس داریم:
+\begin{gather*}
+		E\left[m_{n}\right]=E\left[\left(1-\beta_{1}\right) \sum_{i=1}^{n} \beta_{1}^{n-i} f_{i}\right] \\
+		=E\left[f_{t}\right]\left(1-\beta_{1}\right) \sum_{i=1}^{n} \beta_{1}^{n-i}+\zeta \\
+		=E\left[f_{t}\right]\left(1-\beta_{1}^{n}\right)+\zeta
+\end{gather*}
+
+حال چون مقدار 
+$(1-B_1^n)$
+یک مقدار بسیار نزدیک به ۱ است و البته همیشه کوچکتر از یک است میتوان تقریبا عبارت های زیر را معادل دانست.
+$$
+E[m_n] = E[f_t]
+$$
+
+که چون 
+$m_t$
+نزدیک به صفر است این دو تقریبا نزدیک به صفر خواهند بود. حال برای این که مقادیر بزرگ شوند یک راهکار این است که بر روی 
+$(1-B_1)$
+تقسیم کنیم که اعداد نسبتا بزرگی تولید خواهد کرد پس دیگه مشکلی بابت میل به صفر نداریم.
+\section{سوال ۴}
+\subsection{الف}
+خب بصورت برداری لایه اول یا همون ورودی را X معرفی میکنیم.پس داریم:
+
+\begin{gather*}
+	Input\ =\ X\ =\ Z_{0} =\begin{bmatrix}
+		1 & 2
+	\end{bmatrix}\\
+	A_{1} =Z_{0} W_{0} +B_{0} =\begin{bmatrix}
+		1 & 2
+	\end{bmatrix}\begin{bmatrix}
+		0 & 0 & 0 & 0\\
+		0 & 0 & 0 & 0
+	\end{bmatrix} +\begin{bmatrix}
+		0 & 0 & 0 & 0
+	\end{bmatrix} =\begin{bmatrix}
+		0 & 0 & 0 & 0
+	\end{bmatrix}\\
+	Z_{1} =\sigma ( A_{1}) =\begin{bmatrix}
+		\frac{1}{2} & \frac{1}{2} & \frac{1}{2} & \frac{1}{2}
+	\end{bmatrix}\\
+	A_{2} =Z_{1} W_{1} +B_{1}\\
+	=\begin{bmatrix}
+		\frac{1}{2} & \frac{1}{2} & \frac{1}{2} & \frac{1}{2}
+	\end{bmatrix}\begin{bmatrix}
+		0 & 0 & 0\\
+		0 & 0 & 0\\
+		0 & 0 & 0\\
+		0 & 0 & 0
+	\end{bmatrix} +\begin{bmatrix}
+		0 & 0 & 0
+	\end{bmatrix} =\begin{bmatrix}
+		0 & 0 & 0
+	\end{bmatrix}\\
+	Z_{2} =\sigma ( A_{2}) =\begin{bmatrix}
+		\frac{1}{2} & \frac{1}{2} & \frac{1}{2}
+	\end{bmatrix}\\
+	A_{3} =Z_{2} W_{2} +B_{2}\\
+	=\begin{bmatrix}
+		\frac{1}{2} & \frac{1}{2} & \frac{1}{2}
+	\end{bmatrix}\begin{bmatrix}
+		0\\
+		0\\
+		0
+	\end{bmatrix} +\begin{bmatrix}
+		0
+	\end{bmatrix} =[ 0]\\
+	Z_{3} =\sigma ( A_{3}) \ =\left[\frac{1}{2}\right] \Longrightarrow \ output\ =\ 1
+\end{gather*}
+خب به هر حال خروجی یا یک است یا صفر که ما فرض میکنیم ۱ باشد. 
+
+حال با توجه به فرمول زیر مقدار خطای هر لایه را حساب میکنیم:
+\begin{gather*}
+	Error\ =\ \frac{1}{2}( Predicted-Real)^{2} =\frac{1}{2}\left(\frac{1}{2} -1\right)^{2} =\frac{1}{4}\\
+	\delta ^{L} =\nabla _{z} L\circledcirc \sigma ^{\prime }( a_{L}) =\frac{1}{4}([ 0] *( 1-[ 0]) =0\\
+\end{gather*}
+و با توجه به این که میدانیم 
+\begin{equation*}
+	\delta^{l}=\left(\left(w^{l+1}\right)^{T} \delta^{l+1}\right) \odot \sigma^{\prime}\left(z^{l}\right)
+\end{equation*}
+
+پس متوجه میشویم که کل مشتق های کل وزن های دیگر صفر است زیرا تک تک مشتق ها به مشتق لایه بعدی خود نیاز دارند که با توجه به این که مشتق آخرین لایه صفر است تا اولین لایه یک صفر در همه ضرب میشود که باعث میشود کل تغییرات ضرایب صفر شود. پس هیچ اتفاقی در شبکه نداریم! البته فرمول بالا در کتاب های کلاسیک یادگیری ماشین اثبات میشود و من نیازی به اثبات آن ندیدم. 
+
+\subsection{ب}
+
+\begin{gather*}
+	L\left( y,y^{\prime }\right) =-y^{T} log\hat{y} =\sum _{i=1}^{d} -y_{i} log\widehat{y_{i}}\\
+	\frac{\partial L}{\partial \hat{y}_{i}} =-\frac{y_{i}}{\hat{y}_{i}}\\
+	\hat{y} =softmax( u)
+\end{gather*}
+
+ابتدا قدری در مورد سافت مکس توضیح بدهیم:
+$$
+\sigma(\mathbf{x})_{i}=\frac{e^{x_{i}}}{\sum_{j=1}^{N} e^{x_{j}}}
+$$
+
+برای بدست آوردن مشتق آن داریم:
+$$
+\frac{\partial \sigma(\mathbf{x})}{\partial \mathbf{x}}=\frac{\partial \sigma(x)_{k}}{\partial x_{i}}=\frac{\partial}{\partial x_{i}}\left(\frac{e^{x_{k}}}{\sum_{j=1}^{N} e^{x_{j}}}\right)
+$$
+
+که میتوان نوشت:
+\begin{gather*}
+	f=e^{x_{k}} \\
+	g=\sum_{j=1}^{N} e^{x_{j}} \\
+	z=x_{i} \\
+	\frac{\partial f}{\partial z}=\frac{\partial\left(e^{x_{k}}\right)}{\partial x_{i}}=e^{x_{k}} \frac{\partial x_{k}}{\partial x_{i}}=e^{x_{k}} \delta_{i k} \\
+	\frac{\partial g}{\partial z}=\sum_{j=1}^{N} \frac{\partial e^{x_{j}}}{\partial x_{i}}=\sum_{j=1}^{N} e^{x_{j}} \frac{\partial x_{j}}{\partial x_{i}} \\
+	=e^{x_{1}} \frac{\partial x_{1}}{\partial x_{i}}+e^{x_{2}} \frac{\partial x_{2}}{\partial x_{i}}+\cdots+e^{x_{N}} \frac{\partial x_{N}}{\partial x_{i}}=e^{x_{i}} \text { for any } i \\
+	\frac{\partial f}{\partial z} f-\frac{\partial g}{\partial z} f_{j}=\frac{e^{x_{k} \delta_{i k}} \sum_{j=1}^{N} e^{x_{j}}-e^{x_{i}} e^{x_{k}}}{\left[\sum_{j=1}^{N} e^{x_{j}}\right]^{2}}
+\end{gather*}
+
+پس داریم:
+\begin{gather*}
+		\frac{\partial \sigma(x)_{k}}{\partial x_{i}}=\frac{e^{x_{k} \delta_{i k}} \sum_{j=1}^{N} e^{x_{j}}-e^{x_{i}} e^{x_{k}}}{\left[\sum_{j=1}^{N} e^{x_{j}}\right]^{2}} \\
+		=\frac{e^{x_{k}}}{\sum_{j=1}^{N} e^{x_{j}}} \delta_{i k} \frac{\sum_{j=1}^{N} e^{x_{j}}}{\sum_{j=1}^{N} e^{x_{j}}}-\frac{e^{x_{i}}}{\sum_{j=1}^{N} e^{x_{j}} \frac{e^{x_{k}}}{\sum_{j=1}^{N} e^{x_{j}}}} \\
+		=\sigma(\mathbf{x})_{k} \delta_{i k}-\sigma(\mathbf{x})_{i} \sigma(\mathbf{x})_{k} \\
+		=\sigma(\mathbf{x})_{k}\left(\delta_{i k}-\sigma(\mathbf{x})_{i}\right)
+\end{gather*}
+
+که نهایتا میتوان همچنین نتیجه گیری را انجام داد. البته با توجه به این که سوال نوشته مراحل را با جزئیات نشان دهید مطمئن نیستم بدست آوردن مشتق تابع softmax نیز خواسته سوال بوده است یا خیر. 
+\begin{gather*}
+	\frac{\partial \sigma_{k}}{\partial x_{i}}=\sigma_{k}\left(\delta_{i k}-\sigma_{i}\right)
+\end{gather*}
+
+در بقیه سوال نیز داریم 
+
+$$ \begin{array}{l}
+	u=W{^{\prime }}^{T} h\\
+	\frac{\partial u}{\partial h} =W'\\
+	h=W^{T} x\\
+	\frac{\partial h}{\partial x} =W
+\end{array}
+$$
+
+و البته با توجه به قاعده زنجیری میتوان نوشت که: 
+\begin{gather*}
+	\frac{\partial L}{\partial u} =\frac{\partial L}{\partial \hat{y}} \times \frac{\partial \hat{y}}{\partial u}\\
+	\frac{\partial L}{\partial h} =\frac{\partial L}{\partial \hat{y}} \times \frac{\partial \hat{y}}{\partial u} \times \frac{\partial u}{\partial h}\\
+	\frac{\partial L}{\partial x} =\frac{\partial L}{\partial \hat{y}} \times \frac{\partial \hat{y}}{\partial u} \times \frac{\partial u}{\partial h} \times \frac{\partial h}{\partial x}
+\end{gather*}
+	
+
+
+ \end{document}
