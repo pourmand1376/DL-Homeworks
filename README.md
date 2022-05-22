@@ -45,13 +45,13 @@ Practical(Q4): [[markdown]](HW4/Practical/DL_HW4_AmirPourmand.md) [[notebook]](H
 
 ### HW5
 
-Theoretical: [[Questions]](HW5/Theoretical/HW5.pdf) [[Answers]](HW5/Theoretical/HW5_Solution.pdf) [[My Answers]](HW5/Theoretical/DL5-99210259-AmirPourmand-01-18-2022 11.22.pdf)
+Theoretical: [[Questions]](HW5/Theoretical/HW5.pdf) [[Answers]](HW5/Theoretical/HW5_Solution.pdf) [[My Answers]](HW5/Theoretical/DL5-99210259-AmirPourmand.pdf)
 
 Practical(Q6): [[markdown]](HW5/Question6/GAN_HW5_AmirPourmand.md) [[notebook]](HW5/Question6/GAN_HW5_AmirPourmand.ipynb) [[python]](HW5/Question6/GAN_HW5_AmirPourmand.py) [[pdf]](HW5/Question6/GAN_HW5_AmirPourmand.pdf) [[html]](HW5/Question6/GAN_HW5_AmirPourmand.html)
 
 Practical(Q7): [[markdown]](HW5/Question7/Conditional_VAE_AmirPourmand_99210259.md) [[notebook]](HW5/Question7/Conditional_VAE_AmirPourmand_99210259.ipynb) [[python]](HW5/Question7/Conditional_VAE_AmirPourmand_99210259.py) [[pdf]](HW5/Question7/Conditional_VAE_AmirPourmand_99210259.pdf) [[html]](HW5/Question7/Conditional_VAE_AmirPourmand_99210259.html)
 
-Practical Solution: [[markdown]](HW5/Practical Solution/GAN.md) [[notebook]](HW5/Practical Solution/GAN.ipynb) [[python]](HW5/Practical Solution/GAN.py) [[pdf]](HW5/Practical Solution/GAN.pdf) [[html]](HW5/Practical Solution/GAN.html)
+Practical Solution: [[markdown]](HW5/Practical_Solution/GAN.md) [[notebook]](HW5/Practical_Solution/GAN.ipynb) [[python]](HW5/Practical_Solution/GAN.py) [[pdf]](HW5/Practical_Solution/GAN.pdf) [[html]](HW5/Practical_Solution/GAN.html)
 
 ### HW6
 
