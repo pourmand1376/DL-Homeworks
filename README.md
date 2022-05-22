@@ -2,4 +2,4 @@
 
 ### Exams
 
-MidTerm: [[MidTerm/Exam Part1.pdf]](Exam Part 1)
+MidTerm: [[Exam Part 1]](MidTerm/ExamPart1.pdf)
