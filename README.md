@@ -1,3 +1,6 @@
+![](https://img.shields.io/github/license/pourmand1376/DL-homeworks)
+![](https://img.shields.io/github/repo-size/pourmand1376/DL-Homeworks)
+
 # Deep Learning 
 
 ## Exams
